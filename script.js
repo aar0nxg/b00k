@@ -1,4 +1,3 @@
-
 const totalPages = 13;
 let currentPage = 1;
 
