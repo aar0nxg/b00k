@@ -1,4 +1,3 @@
-
 body {
   margin: 0;
   font-family: 'Comic Sans MS', cursive;
@@ -9,6 +8,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .storybook {
@@ -16,39 +16,49 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  max-width: 100%;
-  padding: 20px;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .page {
   text-align: center;
-  max-width: 90vw;
+  position: relative;
+  max-width: 420px;
+  width: 90vw;
 }
 
-.page img {
-  width: 100%;
-  max-width: 400px;
-  border: 12px solid #fff;
+.photo-frame {
+  position: relative;
+  background: white;
+  border: 12px solid white;
   box-shadow: 0 0 10px #000;
-  border-bottom: 40px solid #fff;
-  background: #fff;
-  display: block;
-  margin: 0 auto;
+  padding-bottom: 60px;
 }
 
-.page p {
-  font-size: 1.2rem;
-  color: #fff;
-  margin-top: 1rem;
-  max-width: 90vw;
+.photo-frame img {
+  width: 100%;
+  display: block;
+}
+
+.caption {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #000;
+  font-size: 1.1rem;
+  padding: 0 10px;
+  font-weight: bold;
 }
 
 button {
   background: none;
   border: none;
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.5rem;
   cursor: pointer;
+  z-index: 10;
 }
 
 .vhs-overlay {
