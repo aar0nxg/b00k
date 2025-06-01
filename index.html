@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,17 +7,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- VHS overlay -->
   <div class="vhs-overlay">
     <div class="rec">● REC</div>
     <div class="counter">00:00:00</div>
   </div>
 
+  <!-- Floating hearts background -->
   <div class="heart-container"></div>
 
-  <audio autoplay loop>
+  <!-- MUSIC -->
+  <audio id="bgm" autoplay loop muted>
     <source src="assets/lofi.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Main content -->
   <div class="storybook">
     <button id="prev">&#9664;</button>
     <div class="page">
@@ -30,6 +33,16 @@
     <button id="next">&#9654;</button>
   </div>
 
+  <!-- JS -->
   <script src="script.js"></script>
+
+  <!-- Unmute music on click -->
+  <script>
+    document.addEventListener('click', () => {
+      const audio = document.getElementById('bgm');
+      audio.muted = false;
+      audio.play();
+    }, { once: true });
+  </script>
 </body>
 </html>
