@@ -7,20 +7,20 @@
   <link rel="stylesheet" href="cover-style.css" />
 </head>
 <body>
-  <!-- 1) Animated starfield/aurora background -->
+  <!-- 🌌 Animated starfield background -->
   <div class="starfield"></div>
 
-  <!-- 2) Quick VHS glitch overlay on load -->
+  <!-- 📼 VHS glitch overlay -->
   <div class="glitch"></div>
 
-  <!-- 3) Floating hearts -->
+  <!-- 💕 Floating hearts -->
   <div class="heart-container">
     <span class="heart">❤️</span>
     <span class="heart">💜</span>
     <span class="heart">💕</span>
   </div>
 
-  <!-- 4) Cover art + title + Play button -->
+  <!-- 📸 Cover art, title, and button -->
   <div class="cover-screen">
     <img src="assets/cover.png" alt="Cover Art" class="cover-art"/>
     <div class="title-box">
@@ -30,34 +30,32 @@
     </div>
   </div>
 
-  <!-- 5) Background music (starts muted) -->
-  <audio id="bgm" loop muted autoplay>
-    <source src="assets/lofi.mp3" type="audio/mpeg"/>
+  <!-- 🎵 Background music -->
+  <audio id="bgm" autoplay loop muted>
+    <source src="assets/lofi.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- 6) VHS click sound effect -->
+  <!-- 📼 VHS click effect -->
   <audio id="click-sound">
-    <source src="assets/vhs-click.mp3" type="audio/mpeg"/>
+    <source src="assets/vhs-click.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- 7) Inline JS for animations and button behavior -->
   <script>
-    // On page load: trigger glitch to fade out, then start typewriter on title
+    // Glitch fadeout + typewriter
     window.addEventListener('load', () => {
       document.querySelector('.glitch').classList.add('fade-out');
       document.querySelector('.title').classList.add('typewriter');
     });
 
-    // When ▶ Play is clicked: unmute bgm, play click sound, then redirect
+    // Play button
     document.getElementById('start-button').addEventListener('click', () => {
-      const bgm = document.getElementById('bgm');
+      const audio = document.getElementById('bgm');
       const click = document.getElementById('click-sound');
-      bgm.muted = false;
-      bgm.play();
+      audio.muted = false;
+      audio.play();
       click.play();
-      // small delay so the click sound is heard before redirection
       setTimeout(() => {
-        window.location.href = "storybook.html";
+        window.location.href = "storybook.html"; // 👈 make sure this is the correct filename
       }, 300);
     });
   </script>
