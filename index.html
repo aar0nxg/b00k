@@ -49,7 +49,7 @@
 
     // ▶ Play button behavior
     document.getElementById('start-button').addEventListener('click', () => {
-      console.log("▶ Play button clicked"); // DEBUG: confirms click
+      console.log("▶ Play button clicked");
 
       const audio = document.getElementById('bgm');
       const click = document.getElementById('click-sound');
@@ -62,8 +62,8 @@
         console.warn("Autoplay error:", err);
       }
 
-      console.log("Redirecting to storybook.html..."); // DEBUG
-      window.location.href = "storybook.html"; // ✅ make sure this file exists!
+      // 🔄 Use replace for reliable redirect
+      window.location.replace("storybook.html");
     });
   </script>
 </body>
