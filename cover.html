@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Otter & Doggo Tape</title>
+  <link rel="stylesheet" href="cover-style.css" />
+</head>
+<body>
+  <div class="cover-screen">
+    <img src="assets/cover.png" alt="Cover Art" class="cover-art">
+    <div class="title-box">
+      <h1>The Otter & Doggo Tape</h1>
+      <p>A Storybook of Forever</p>
+      <button id="start-button">▶ Play</button>
+    </div>
+  </div>
+
+  <audio id="bgm" loop muted autoplay>
+    <source src="assets/lofi.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.getElementById('start-button').addEventListener('click', () => {
+      const audio = document.getElementById('bgm');
+      audio.muted = false;
+      audio.play();
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: black;
+  font-family: 'Comic Sans MS', cursive;
+  color: white;
+  overflow: hidden;
+}
+
+.cover-screen {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.cover-art {
+  max-width: 90%;
+  max-height: 60vh;
+  border: 8px solid white;
+  box-shadow: 0 0 20px rgba(255,255,255,0.5);
+  margin-bottom: 20px;
+}
+
+.title-box {
+  z-index: 2;
+}
+
+.title-box h1 {
+  font-size: 2.5rem;
+  color: #ffb3ec;
+  margin-bottom: 0.3rem;
+}
+
+.title-box p {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 1.2rem;
+}
+
+#start-button {
+  font-size: 1.5rem;
+  padding: 10px 25px;
+  border: none;
+  background: #ff5c8d;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff5c8d;
+  transition: background 0.3s ease;
+}
+
+#start-button:hover {
+  background: #e94e77;
+}
