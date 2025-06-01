@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Story of Otter & Doggo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="vhs-overlay">
+    <div class="rec">● REC</div>
+    <div class="counter">00:00:00</div>
+  </div>
+
+  <div class="heart-container"></div>
+
+  <audio autoplay loop>
+    <source src="assets/lofi.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="storybook">
+    <button id="prev">&#9664;</button>
+    <div class="page">
+      <div class="photo-frame">
+        <img id="image" src="assets/page1.png" alt="Memory 1"/>
+        <div class="caption" id="caption">Loading...</div>
+      </div>
+    </div>
+    <button id="next">&#9654;</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
