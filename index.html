@@ -47,16 +47,23 @@
       document.querySelector('.title').classList.add('typewriter');
     });
 
-    // Play button
+    // ▶ Play button behavior
     document.getElementById('start-button').addEventListener('click', () => {
+      console.log("▶ Play button clicked"); // DEBUG: confirms click
+
       const audio = document.getElementById('bgm');
       const click = document.getElementById('click-sound');
-      audio.muted = false;
-      audio.play();
-      click.play();
-      setTimeout(() => {
-        window.location.href = "storybook.html"; // 👈 make sure this is the correct filename
-      }, 300);
+
+      try {
+        audio.muted = false;
+        audio.play();
+        click.play();
+      } catch (err) {
+        console.warn("Autoplay error:", err);
+      }
+
+      console.log("Redirecting to storybook.html..."); // DEBUG
+      window.location.href = "storybook.html"; // ✅ make sure this file exists!
     });
   </script>
 </body>
