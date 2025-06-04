@@ -48,22 +48,24 @@
     });
 
     // ▶ Play button behavior
-    document.getElementById('start-button').addEventListener('click', () => {
+    document.getElementById('start-button').addEventListener('click', async () => {
       console.log("▶ Play button clicked");
 
-      const audio = document.getElementById('bgm');
-      const click = document.getElementById('click-sound');
+      const bgm = document.getElementById('bgm');
+      const clickSound = document.getElementById('click-sound');
 
       try {
-        audio.muted = false;
-        audio.play();
-        click.play();
-      } catch (err) {
-        console.warn("Autoplay error:", err);
+        bgm.muted = false;
+        await bgm.play();
+        await clickSound.play();
+      } catch (e) {
+        console.warn("Audio autoplay blocked:", e);
       }
 
-      // 🔄 Use replace for reliable redirect
-      window.location.replace("storybook.html");
+      // Navigate after slight delay for click sound
+      setTimeout(() => {
+        window.location.href = "storybook.html";
+      }, 300);
     });
   </script>
 </body>
