@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Story of Otter & Doggo</title>
+  <title>The Otter & Doggo Tape</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,36 +13,134 @@
     <div class="counter">00:00:00</div>
   </div>
 
-  <!-- Floating hearts background -->
+  <!-- Floating hearts + starfield background -->
   <div class="heart-container"></div>
+  <div class="starfield"></div>
+  <div class="glitch" id="glitch"></div>
 
-  <!-- MUSIC -->
+  <!-- Music -->
   <audio id="bgm" autoplay loop muted>
     <source src="assets/lofi.mp3" type="audio/mpeg">
   </audio>
+  <audio id="click-sound">
+    <source src="assets/vhs-click.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- Main content -->
+  <!-- Main Storybook -->
   <div class="storybook">
     <button id="prev">&#9664;</button>
-    <div class="page">
-      <div class="photo-frame">
-        <img id="image" src="assets/page1.png" alt="Memory 1"/>
-        <div class="caption" id="caption">Loading...</div>
-      </div>
+    <div class="page" id="page-container">
+      <!-- Page content will be inserted dynamically -->
     </div>
     <button id="next">&#9654;</button>
   </div>
 
-  <!-- JS -->
-  <script src="script.js"></script>
-
-  <!-- Unmute music on click -->
   <script>
-    document.addEventListener('click', () => {
-      const audio = document.getElementById('bgm');
-      audio.muted = false;
-      audio.play();
+    const totalPages = 14; // 1 intro page + 13 photo pages
+    let currentPage = 0;
+
+    const container = document.getElementById("page-container");
+    const image = document.createElement("img");
+    const caption = document.createElement("div");
+    caption.className = "caption";
+    container.appendChild(image);
+    container.appendChild(caption);
+
+    const glitch = document.getElementById("glitch");
+    const bgm = document.getElementById("bgm");
+    const clickSound = document.getElementById("click-sound");
+
+    const captions = {
+      page1: "Our first hug 💜",
+      page2: "That one time you looked at me and I melted",
+      page3: "Our walk in the park 🌸",
+      page4: "You laughed and the world stopped",
+      page5: "The bridge photo 😭",
+      page6: "You in my hoodie ❤️",
+      page7: "One of our best nights",
+      page8: "Wishing time would freeze",
+      page9: "Your sleepy eyes 💤",
+      page10: "Us being goofy",
+      page11: "The moment I knew...",
+      page12: "Forever starts here",
+      page13: "I love you always 💍"
+    };
+
+    function loadPage() {
+      if (currentPage === 0) {
+        // Intro screen content
+        container.innerHTML = `
+          <img src="assets/cover.png" alt="Cover Art" class="cover-art"/>
+          <div class="title typewriter">The Otter & Doggo Tape</div>
+          <p class="subtitle">A Storybook of Forever</p>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="photo-frame">
+            <img id="image" src="assets/page${currentPage}.png" alt="Memory ${currentPage}"/>
+            <div class="caption" id="caption"></div>
+          </div>
+        `;
+        typeCaption(captions[`page${currentPage}`] || "");
+      }
+
+      if (currentPage === 0) {
+        glitch.classList.remove('fade-out');
+        setTimeout(() => {
+          glitch.classList.add('fade-out');
+        }, 100);
+      }
+    }
+
+    function typeCaption(text) {
+      const caption = document.getElementById("caption");
+      if (!caption) return;
+      caption.textContent = '';
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          caption.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 25);
+        }
+      }
+      type();
+    }
+
+    document.getElementById("next").addEventListener("click", () => {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        clickSound.play();
+        loadPage();
+      }
+    });
+
+    document.getElementById("prev").addEventListener("click", () => {
+      if (currentPage > 0) {
+        currentPage--;
+        clickSound.play();
+        loadPage();
+      }
+    });
+
+    // Unmute on any user interaction
+    document.addEventListener("click", () => {
+      bgm.muted = false;
+      bgm.play();
     }, { once: true });
+
+    // Timer
+    let seconds = 0;
+    setInterval(() => {
+      seconds++;
+      const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+      const secs = String(seconds % 60).padStart(2, '0');
+      document.querySelector(".counter").textContent = `${hrs}:${mins}:${secs}`;
+    }, 1000);
+
+    // Initial load
+    window.onload = loadPage;
   </script>
 </body>
 </html>
