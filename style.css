@@ -194,7 +194,7 @@ button {
   overflow: hidden;
   border-right: 0.15em solid #ffb3ec;
   display: inline-block;
-  width: 0;
+  width: 0ch; /* typewriter start */
 }
 
 .title.typewriter {
@@ -210,8 +210,8 @@ button {
 }
 
 @keyframes typing {
-  from { width: 0; }
-  to   { width: 100%; }
+  from { width: 0ch; }
+  to   { width: 25ch; } /* long enough for full title */
 }
 
 @keyframes blink-caret {
