@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>The Otter & Doggo Tape</title>
+  <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+  <div class='vhs-overlay'>
+    <div class='rec'>● REC</div>
+    <div class='counter'>00:00:00</div>
+  </div>
+
+  <div class='heart-container'></div>
+  <div class='starfield'></div>
+  <div class='glitch' id='glitch'></div>
+
+  <audio id='bgm' autoplay loop muted>
+    <source src='assets/lofi.mp3' type='audio/mpeg'>
+  </audio>
+  <audio id='click-sound'>
+    <source src='assets/vhs-click.mp3' type='audio/mpeg'>
+  </audio>
+
+  <div class='storybook'>
+    <button id='prev'>&#9664;</button>
+    <div class='page' id='page-container'></div>
+    <button id='next'>&#9654;</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const totalPages = 14;
+      let currentPage = 0;
+
+      const container = document.getElementById('page-container');
+      const glitch = document.getElementById('glitch');
+      const bgm = document.getElementById('bgm');
+      const clickSound = document.getElementById('click-sound');
+
+      const captions = {
+        page1: 'Our first hug 💜',
+        page2: 'That one time you looked at me and I melted',
+        page3: 'Our walk in the park 🌸',
+        page4: 'You laughed and the world stopped',
+        page5: 'The bridge photo 😭',
+        page6: 'You in my hoodie ❤️',
+        page7: 'One of our best nights',
+        page8: 'Wishing time would freeze',
+        page9: 'Your sleepy eyes 💤',
+        page10: 'Us being goofy',
+        page11: 'The moment I knew...',
+        page12: 'Forever starts here',
+        page13: 'I love you always 💍'
+      };
+
+      function loadPage() {
+        console.log("📄 Loading page:", currentPage);
+
+        if (!container) return;
+
+        if (currentPage === 0) {
+          container.innerHTML = `
+            <img src='assets/cover.png' class='cover-art'/>
+            <div class='title typewriter'>The Otter & Doggo Tape</div>
+            <p class='subtitle'>A Storybook of Forever</p>
+          `;
+          glitch.classList.remove('fade-out');
+          setTimeout(() => glitch.classList.add('fade-out'), 100);
+        } else {
+          container.innerHTML = `
+            <div class='photo-frame'>
+              <img id='image' src='assets/page${currentPage}.png' alt='Memory ${currentPage}'/>
+              <div class='caption' id='caption'></div>
+            </div>
+          `;
+          typeCaption(captions[\`page\${currentPage}\`] || '');
+        }
+      }
+
+      function typeCaption(text) {
+        const caption = document.getElementById('caption');
+        if (!caption) return;
+        caption.textContent = '';
+        let i = 0;
+        function type() {
+          if (i < text.length) {
+            caption.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 25);
+          }
+        }
+        type();
+      }
+
+      document.getElementById('next').addEventListener('click', () => {
+        console.log("➡️ next clicked");
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          clickSound.play();
+          loadPage();
+        }
+      });
+
+      document.getElementById('prev').addEventListener('click', () => {
+        console.log("⬅️ prev clicked");
+        if (currentPage > 0) {
+          currentPage--;
+          clickSound.play();
+          loadPage();
+        }
+      });
+
+      document.addEventListener('click', () => {
+        bgm.muted = false;
+        bgm.play();
+      }, { once: true });
+
+      let seconds = 0;
+      setInterval(() => {
+        seconds++;
+        const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+        const secs = String(seconds % 60).padStart(2, '0');
+        document.querySelector('.counter').textContent = `${hrs}:${mins}:${secs}`;
+      }, 1000);
+
+      loadPage();
+    });
+  </script>
+</body>
+</html>
