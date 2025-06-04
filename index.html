@@ -15,6 +15,7 @@
 
   <!-- Floating hearts + starfield + glitch -->
   <div class="heart-container"></div>
+  <div class="floating-hearts"></div>
   <div class="starfield"></div>
   <div class="glitch fade-out" id="glitch"></div>
 
@@ -63,15 +64,12 @@
       function loadPage() {
         console.log("Loading page:", currentPage);
         const src = `assets/page${currentPage}.png`;
-        console.log("Image source:", src);
-
         container.innerHTML = `
           <div class="photo-frame">
             <img id="image" src="${src}" alt="Memory ${currentPage}" />
             <div class="caption" id="caption"></div>
           </div>
         `;
-
         typeCaption(captions[`page${currentPage}`] || "");
       }
 
@@ -91,30 +89,26 @@
       }
 
       document.getElementById("next").addEventListener("click", () => {
-        console.log("Next clicked");
         if (currentPage < totalPages - 1) {
           currentPage++;
-          if (clickSound) clickSound.play().catch(err => console.warn("Click sound error:", err));
+          clickSound.play().catch(err => console.warn("Click sound error:", err));
           loadPage();
         }
       });
 
       document.getElementById("prev").addEventListener("click", () => {
-        console.log("Prev clicked");
         if (currentPage > 0) {
           currentPage--;
-          if (clickSound) clickSound.play().catch(err => console.warn("Click sound error:", err));
+          clickSound.play().catch(err => console.warn("Click sound error:", err));
           loadPage();
         }
       });
 
-      // Unmute and start BGM on first click
       document.addEventListener("click", () => {
         bgm.muted = false;
         bgm.play().catch(() => {});
       }, { once: true });
 
-      // VHS‐style timer
       let seconds = 0;
       setInterval(() => {
         seconds++;
@@ -123,6 +117,23 @@
         const secs = String(seconds % 60).padStart(2, "0");
         document.querySelector(".counter").textContent = `${hrs}:${mins}:${secs}`;
       }, 1000);
+
+      // Floating romantic hearts
+      const heartContainer = document.querySelector('.floating-hearts');
+      const heartEmojis = ['❤️','💜','💕','💖','💘','💞','💗','💓','💌'];
+
+      function spawnHeart() {
+        const heart = document.createElement('span');
+        heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (6 + Math.random() * 4) + 's';
+        heart.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        heart.style.top = '100vh';
+        heartContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 10000);
+      }
+
+      setInterval(spawnHeart, 300); // every 0.3s
 
       loadPage();
     });
