@@ -7,19 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- VHS Overlay (REC & Timer) -->
   <div class="vhs-overlay">
     <div class="rec">● REC</div>
     <div class="counter">00:00:00</div>
   </div>
 
-  <!-- Background Decorations -->
   <div class="starfield"></div>
   <div class="heart-container"></div>
   <div class="floating-hearts"></div>
   <div class="glitch fade-out" id="glitch"></div>
 
-  <!-- Background Audio -->
   <audio id="bgm" autoplay loop muted>
     <source src="assets/lofi.mp3" type="audio/mpeg" />
   </audio>
@@ -27,14 +24,12 @@
     <source src="assets/vhs-click.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Storybook Display -->
   <div class="storybook">
     <button id="prev">&#9664;</button>
     <div class="page" id="page-container"></div>
     <button id="next">&#9654;</button>
   </div>
 
-  <!-- Script -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const totalPages = 14;
@@ -66,15 +61,14 @@
         container.innerHTML = `
           <div class="photo-frame">
             <img id="image" src="${src}" alt="Memory ${currentPage}" />
-            <div class="caption" id="caption"></div>
           </div>
+          <div class="caption" id="caption"></div>
         `;
         typeCaption(captions[`page${currentPage}`] || "");
       }
 
       function typeCaption(text) {
         const caption = document.getElementById("caption");
-        if (!caption) return;
         caption.textContent = "";
         let i = 0;
         function type() {
@@ -90,7 +84,7 @@
       document.getElementById("next").addEventListener("click", () => {
         if (currentPage < totalPages - 1) {
           currentPage++;
-          clickSound.play().catch(err => console.warn("Click sound error:", err));
+          clickSound.play().catch(() => {});
           loadPage();
         }
       });
@@ -98,7 +92,7 @@
       document.getElementById("prev").addEventListener("click", () => {
         if (currentPage > 0) {
           currentPage--;
-          clickSound.play().catch(err => console.warn("Click sound error:", err));
+          clickSound.play().catch(() => {});
           loadPage();
         }
       });
@@ -108,7 +102,6 @@
         bgm.play().catch(() => {});
       }, { once: true });
 
-      // VHS Timer
       let seconds = 0;
       setInterval(() => {
         seconds++;
@@ -118,7 +111,6 @@
         document.querySelector(".counter").textContent = `${hrs}:${mins}:${secs}`;
       }, 1000);
 
-      // Floating Romantic Hearts
       const heartContainer = document.querySelector('.floating-hearts');
       const heartEmojis = ['❤️','💜','💕','💖','💘','💞','💗','💓','💌'];
 
