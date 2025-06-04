@@ -7,19 +7,19 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- VHS overlay (REC & timer) -->
+  <!-- VHS Overlay (REC & Timer) -->
   <div class="vhs-overlay">
     <div class="rec">● REC</div>
     <div class="counter">00:00:00</div>
   </div>
 
-  <!-- Floating hearts + starfield + glitch -->
+  <!-- Background Decorations -->
+  <div class="starfield"></div>
   <div class="heart-container"></div>
   <div class="floating-hearts"></div>
-  <div class="starfield"></div>
   <div class="glitch fade-out" id="glitch"></div>
 
-  <!-- Background music and click sound -->
+  <!-- Background Audio -->
   <audio id="bgm" autoplay loop muted>
     <source src="assets/lofi.mp3" type="audio/mpeg" />
   </audio>
@@ -27,23 +27,23 @@
     <source src="assets/vhs-click.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Storybook container -->
+  <!-- Storybook Display -->
   <div class="storybook">
     <button id="prev">&#9664;</button>
     <div class="page" id="page-container"></div>
     <button id="next">&#9654;</button>
   </div>
 
+  <!-- Script -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const totalPages = 14; // pages 0–13
+      const totalPages = 14;
       let currentPage = 0;
 
       const container = document.getElementById("page-container");
       const bgm = document.getElementById("bgm");
       const clickSound = document.getElementById("click-sound");
 
-      // Captions for pages 0–13 (page0 has no caption)
       const captions = {
         page0: "",
         page1: "Our first hug 💜",
@@ -62,7 +62,6 @@
       };
 
       function loadPage() {
-        console.log("Loading page:", currentPage);
         const src = `assets/page${currentPage}.png`;
         container.innerHTML = `
           <div class="photo-frame">
@@ -109,6 +108,7 @@
         bgm.play().catch(() => {});
       }, { once: true });
 
+      // VHS Timer
       let seconds = 0;
       setInterval(() => {
         seconds++;
@@ -118,7 +118,7 @@
         document.querySelector(".counter").textContent = `${hrs}:${mins}:${secs}`;
       }, 1000);
 
-      // Floating romantic hearts
+      // Floating Romantic Hearts
       const heartContainer = document.querySelector('.floating-hearts');
       const heartEmojis = ['❤️','💜','💕','💖','💘','💞','💗','💓','💌'];
 
@@ -126,15 +126,16 @@
         const heart = document.createElement('span');
         heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (6 + Math.random() * 4) + 's';
+        heart.style.top = Math.random() * 100 + 'vh';
+        heart.style.opacity = 0.1 + Math.random() * 0.3;
         heart.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-        heart.style.top = '100vh';
+        heart.style.animationDuration = (10 + Math.random() * 10) + 's';
+        heart.classList.add('float-romantic');
         heartContainer.appendChild(heart);
-        setTimeout(() => heart.remove(), 10000);
+        setTimeout(() => heart.remove(), 20000);
       }
 
-      setInterval(spawnHeart, 300); // every 0.3s
-
+      setInterval(spawnHeart, 400);
       loadPage();
     });
   </script>
